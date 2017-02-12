@@ -1,7 +1,3 @@
-'''Last change: 9:10am Jan 28, 2017. add_edge implements additional checks.
-'''
-
-
 class AdjacencyGraph:
     '''Type to represent directed graphs using adjacency storage.
 
@@ -51,6 +47,8 @@ class AdjacencyGraph:
             RuntimeError: When one of the verticies is not a vertex yet
                 and autocreation is off
         '''
+        if type(autocreation) != bool:
+            raise RuntimeError("Autocreation argument is not bool.")
         if autocreation:
             self._vertices.setdefault(e[0], list())
             self._vertices.setdefault(e[1], list())
@@ -61,6 +59,7 @@ class AdjacencyGraph:
             if not self.is_vertex(e[1]):
                 raise RuntimeError("Attempt to create an edge with"
                                    "non-existent vertex: {}".format(e[1]))
+
         self._vertices[e[0]].append(e[1])
 
     def is_edge(self, e):
